@@ -4,6 +4,7 @@ package net.tjado.authorizer;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 /**
  * Created by tm on 21.04.16.
@@ -16,8 +17,6 @@ public class OutputKeyboard implements OutputInterface {
     protected String devicePath = "/dev/hidg0";
     protected FileOutputStream device;
     UsbHidKbd kbdKeyInterpreter;
-    public enum Language { English, German };
-
 
     public OutputKeyboard(OutputInterface.Language lang) throws IOException {
         setLanguage(lang);
@@ -31,12 +30,15 @@ public class OutputKeyboard implements OutputInterface {
 
     public boolean setLanguage(OutputInterface.Language lang) {
 
+        String className = "net.tjado.authorizer.UsbHidKbd_" + lang;
+
         try {
-            String className = "UsbHidKbd_" + lang;
             kbdKeyInterpreter = (UsbHidKbd) Class.forName(className).newInstance();
+            log.debug("Set language " + className);
             return true;
         }
         catch (Exception e) {
+            log.debug("Language " + className + " not found");
             kbdKeyInterpreter = new UsbHidKbd_English();
             return false;
         }
@@ -71,12 +73,16 @@ public class OutputKeyboard implements OutputInterface {
         for (int i = 0; i < output.length(); i++) {
             String textCharString = String.valueOf( output.charAt(i) );
 
-            scancode = kbdKeyInterpreter.getScancode( textCharString );
+            try {
+                scancode = kbdKeyInterpreter.getScancode(textCharString);
+                log.debug( "'" + textCharString + "' > " + ToolBox.bytesToHex(scancode) );
 
-            log.debug( textCharString + " > " + ToolBox.bytesToHex(scancode) );
-            device.write(scancode);
-
-            clean();
+                device.write(scancode);
+                clean();
+            }
+            catch (NoSuchElementException e) {
+                log.debug( "'" + textCharString + "' mapping not found" );
+            }
         }
     }
 

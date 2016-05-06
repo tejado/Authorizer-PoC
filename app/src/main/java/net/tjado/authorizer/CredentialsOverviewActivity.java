@@ -21,6 +21,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.CheckBox;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -163,7 +164,7 @@ public class CredentialsOverviewActivity extends AppCompatActivity {
             tv.setMovementMethod(new ScrollingMovementMethod());
 
             EditText et = (EditText) rootView.findViewById(R.id.writeTestText);
-            et.setText("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()\t -=[]\\;'`,./_+{}|:\"~<>?");
+            et.setText("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%^&*()\t -=[]\\;'`,./_+{}|:\"~<>?ß€°²³µ§äöüÄÖÜ");
 
             Button btSendText = (Button) rootView.findViewById(R.id.sendText);
             btSendText.setOnClickListener(new View.OnClickListener() {
@@ -183,7 +184,6 @@ public class CredentialsOverviewActivity extends AppCompatActivity {
 
             return rootView;
 
-
         }
 
         public void sendText() {
@@ -191,8 +191,15 @@ public class CredentialsOverviewActivity extends AppCompatActivity {
             EditText et = (EditText) getView().findViewById(R.id.writeTestText);
             String etText =  et.getText().toString();
 
+            OutputInterface.Language lang =  OutputInterface.Language.English;
+
+            CheckBox cb = (CheckBox) getView().findViewById(R.id.checkBoxLangGerman);
+            if( cb.isChecked() ) {
+                lang = OutputKeyboard.Language.German;
+            }
+
             try {
-                OutputInterface ct = new OutputKeyboard(null);
+                OutputInterface ct = new OutputKeyboard(lang);
                 ct.sendText(etText);
 
                 TextView tv = (TextView) getView().findViewById(R.id.logTextView);
@@ -212,8 +219,15 @@ public class CredentialsOverviewActivity extends AppCompatActivity {
             EditText et = (EditText) getView().findViewById(R.id.writeTestText);
             String etText =  et.getText().toString();
 
+            OutputInterface.Language lang =  OutputInterface.Language.English;
+
+            CheckBox cb = (CheckBox) getView().findViewById(R.id.checkBoxLangGerman);
+            if( cb.isChecked() ) {
+                lang = OutputKeyboard.Language.German;
+            }
+
             try {
-                OutputInterface ct = new OutputKeyboard(null);
+                OutputInterface ct = new OutputKeyboard(lang);
                 ((OutputKeyboard) ct).sendScancode( ToolBox.hexStringToByteArray(etText) );
 
                 TextView tv = (TextView) getView().findViewById(R.id.logTextView);
