@@ -1,5 +1,26 @@
 <resources>
-    <string name="app_name">Authorizer</string>
+    <string name="app_name" translatable="false">Authorizer</string>
     <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+    <string name="pref_header_general">General</string>
+    <string name="pref_title_usbkbd_language">USB Keyboard Language</string>
+
+    <string name="pref_usbkbd_language_default">Android Systems Default</string>
+    <string name="pref_usbkbd_language_english">English</string>
+    <string name="pref_usbkbd_language_german">German</string>
+
+    <string-array name="pref_list_usbkbd_languages_titels">
+        <item>Android Systems Default</item>
+        <item>@string/pref_usbkbd_language_english</item>
+        <item>@string/pref_usbkbd_language_german</item>
+    </string-array>
+
+    <string-array name="pref_list_usbkbd_languages_values">
+        <item>null</item>
+        <item>en_US</item>
+        <item>de_DE</item>
+    </string-array>
+
 </resources>

@@ -1,6 +1,9 @@
 package net.tjado.authorizer;
 
-import android.support.design.widget.FloatingActionButton;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +28,8 @@ import android.widget.CheckBox;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+
+import java.util.Locale;
 
 public class CredentialsOverviewActivity extends AppCompatActivity {
 
@@ -60,7 +65,9 @@ public class CredentialsOverviewActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-      
+
+        PreferenceManager.setDefaultValues(this, R.xml.pref_general, false);
+
     }
 
 
@@ -73,20 +80,18 @@ public class CredentialsOverviewActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch( item.getItemId() ) {
+            case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                intent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.GeneralPreferenceFragment.class.getName() );
+                intent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
+                this.startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
-
-    
   
 
     /**
@@ -191,12 +196,7 @@ public class CredentialsOverviewActivity extends AppCompatActivity {
             EditText et = (EditText) getView().findViewById(R.id.writeTestText);
             String etText =  et.getText().toString();
 
-            OutputInterface.Language lang =  OutputInterface.Language.English;
-
-            CheckBox cb = (CheckBox) getView().findViewById(R.id.checkBoxLangGerman);
-            if( cb.isChecked() ) {
-                lang = OutputKeyboard.Language.German;
-            }
+            OutputInterface.Language lang = getUsbKeyboardLanguage();
 
             try {
                 OutputInterface ct = new OutputKeyboard(lang);
@@ -219,12 +219,7 @@ public class CredentialsOverviewActivity extends AppCompatActivity {
             EditText et = (EditText) getView().findViewById(R.id.writeTestText);
             String etText =  et.getText().toString();
 
-            OutputInterface.Language lang =  OutputInterface.Language.English;
-
-            CheckBox cb = (CheckBox) getView().findViewById(R.id.checkBoxLangGerman);
-            if( cb.isChecked() ) {
-                lang = OutputKeyboard.Language.German;
-            }
+            OutputInterface.Language lang = getUsbKeyboardLanguage();
 
             try {
                 OutputInterface ct = new OutputKeyboard(lang);
@@ -260,6 +255,28 @@ public class CredentialsOverviewActivity extends AppCompatActivity {
             Snackbar.make(getView(), msg, Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
 
+        }
+
+        public OutputInterface.Language getUsbKeyboardLanguage() {
+
+            String prefUsbKbdLang = PreferenceManager.getDefaultSharedPreferences( getContext() ).getString("usbkbd_language", "en_US");
+
+            if( prefUsbKbdLang.equals("null") ) {
+                log.debug("Getting systems language default");
+                prefUsbKbdLang = Locale.getDefault().toString();
+            }
+
+            log.debug("Identified language: " + prefUsbKbdLang);
+
+            OutputInterface.Language lang;
+            try {
+                lang = OutputInterface.Language.valueOf(prefUsbKbdLang);
+            } catch (IllegalArgumentException e) {
+                log.debug("No scancode mapping for '" + prefUsbKbdLang +"' - using en_US!");
+                lang = OutputInterface.Language.en_US;
+            }
+
+            return lang;
         }
     }
 }

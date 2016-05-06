@@ -34,12 +34,12 @@ public class OutputKeyboard implements OutputInterface {
 
         try {
             kbdKeyInterpreter = (UsbHidKbd) Class.forName(className).newInstance();
-            log.debug("Set language " + className);
+            log.debug("Set language " + lang);
             return true;
         }
         catch (Exception e) {
-            log.debug("Language " + className + " not found");
-            kbdKeyInterpreter = new UsbHidKbd_English();
+            log.debug("Language " + lang + " not found");
+            kbdKeyInterpreter = new UsbHidKbd_en_US();
             return false;
         }
 

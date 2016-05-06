@@ -4,9 +4,9 @@ package net.tjado.authorizer;
 /**
  * Created by tm on 28.04.16.
  */
-public class UsbHidKbd_English extends UsbHidKbd {
+public class UsbHidKbd_en_US extends UsbHidKbd {
 
-    public UsbHidKbd_English() {
+    public UsbHidKbd_en_US() {
 
         kbdVal.put(null,                new byte[] {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00} );
         kbdVal.put("a",					new byte[] {0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00} );

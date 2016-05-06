@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">Einstellungen</string>
+    <string name="app_name" translatable="false"></string>
+    <string name="pref_title_usbkbd_language">USB Tastatur Sprache</string>
+    <string name="title_activity_settings">Einstellungen</string>
+    <string name="pref_header_general">Allgemein</string>
+    <string name="pref_usbkbd_language_english">Deutsch </string>
+    <string name="pref_usbkbd_language_german">Englisch (US)</string>
+    <string name="pref_usbkbd_language_default">Android System Standard</string>
+</resources>
