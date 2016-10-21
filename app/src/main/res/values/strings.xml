@@ -10,17 +10,20 @@
     <string name="pref_usbkbd_language_default">Android Systems Default</string>
     <string name="pref_usbkbd_language_english">English</string>
     <string name="pref_usbkbd_language_german">German</string>
+    <string name="pref_usbkbd_language_german_apple">German (Apple)</string>
 
     <string-array name="pref_list_usbkbd_languages_titels">
         <item>Android Systems Default</item>
         <item>@string/pref_usbkbd_language_english</item>
         <item>@string/pref_usbkbd_language_german</item>
+        <item>@string/pref_usbkbd_language_german_apple</item>
     </string-array>
 
     <string-array name="pref_list_usbkbd_languages_values">
         <item>null</item>
         <item>en_US</item>
         <item>de_DE</item>
+        <item>AppleMac_de_DE</item>
     </string-array>
 
 </resources>

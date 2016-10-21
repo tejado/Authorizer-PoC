@@ -5,7 +5,7 @@ package net.tjado.authorizer;
  */
 public interface OutputInterface {
 
-    public enum Language { en_US, de_DE};
+    public enum Language { en_US, de_DE, AppleMac_de_DE};
     public boolean setLanguage(OutputInterface.Language lang);
     public void sendText(String text) throws Exception;
     public void destruct() throws Exception;
