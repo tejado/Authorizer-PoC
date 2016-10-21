@@ -1,7 +1,10 @@
-Authorizer
-==========
+**Please have a look at [Authorizer](https://github.com/tejado/Authorizer) for the main project!**
 
-Pre-alpha app which transforms your Android device into an USB keyboard with a lot of awesome features.
+
+Authorizer-PoC
+==============
+
+Proof-of-Concept app which transforms your Android device into an USB keyboard.
 
 ##  Requirements
 * Android Kernel compiled with [Android Keyboard Gadget](https://github.com/pelya/android-keyboard-gadget)
@@ -9,6 +12,3 @@ Pre-alpha app which transforms your Android device into an USB keyboard with a l
 ##  Supported keyboard languages ([scancodes](https://en.wikipedia.org/wiki/Scancode))
 * English (US)
 * German
-
-##  Roadmap
-* Password manager functionality
